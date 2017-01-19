@@ -26,7 +26,7 @@ public class HashSet<T> implements OrderedSet<T>{
 		array = new Node[initialSize];
 		this.indexCalculator = indexCalculator;
 	}
-
+	// Returns the size of the Array.
 	public int getLengthOfArray() {
 		return array.length;
 	}
@@ -35,41 +35,37 @@ public class HashSet<T> implements OrderedSet<T>{
 	private void createNewArray(int length) {
 		array = new Node[length];
 	}
+	
 	public void insert(T value) {
-	//	System.out.println("Inserted new element");
 		if(value == null){
 			throw new IllegalArgumentException();
 		}
+		//Exits the method if the input element already exists in the list.
 		if(exists(value)){return;}
+		//Doubles the size of Array if it is full.
 		if(count == array.length){
 			array = doubleArray(array.length);
 		}
 		count++;
-	//	System.out.println("InitialCount: "+count);
 		Node<T> newNode = new Node<T>(value);
+		//Using the Hash Function the index of the node is determined.
 		int indexOfString = hashFunction(value);
+		//If the index is not null, collision is avoided using LinkedList. 
 		if(collision(value)){
-			//System.out.println("collision");
 			tail = avoidCollision(value,newNode,tail,indexOfString);
 			count--;
-		//	System.out.println("CollisionCount: "+count);
 			return;
 		}
 		System.out.println("index: "+indexOfString);
-//		System.out.println("FinalCount: "+count);
 		insertIntoArray(indexOfString, newNode);
 		if(head == null){
 			head = newNode;
 			tail = newNode;
 		}else{
 			tail.setNext(newNode); 
-			//newNode.next = null;
-			newNode.setPrev(tail);
+			newNode.setPrevious(tail);
 			tail = tail.getNext();
-			
 		}
-		
-		
 	}
 
 
@@ -90,53 +86,44 @@ public class HashSet<T> implements OrderedSet<T>{
 
 	Node<T> avoidCollision(T value, Node<T> newNode, Node<T> tail, int indexOfString) {
 		Node<T> temp = array[indexOfString];
-		//System.out.println("CollisionIndex: "+indexOfString);
 		while(temp.getRight()!=null){
 			temp = temp.getRight();
 		}
 		temp.setRight(newNode);
 		tail.setNext(newNode);
-		newNode.setPrev(tail);
+		newNode.setPrevious(tail);
 		tail = tail.getNext();
 		return tail;
-		
 	}
 
 	private boolean collision(T value) {
-
 		return array[hashFunction(value)]!=null;
-		
 	}
 
 	 public boolean exists(T value) {
 		if(array[hashFunction(value)]==null){
 			return false;
 		}else{
-			
 			Node<T> temp = array[hashFunction(value)];
 			while(temp!= null){
 				if(temp.getData().equals(value)){
-				//	System.out.println("-->"+temp.data);
 					return true;
 				}
 				temp =temp.getRight();
 			}
-			
 			return false;
 		}
 	}
 
 	private void insertIntoArray(int indexOfString, Node<T> newNode) {
-
 		array[indexOfString] = newNode;
 	}
 
 	int hashFunction(T value) {
 		return indexCalculator.getIndex(value,array.length);
 	}
-
-	public void print() {
 	
+	public void print() {
 		Node<T> temp = head;
 		if(head == null){
 			System.out.println("Empty list!");
@@ -147,32 +134,33 @@ public class HashSet<T> implements OrderedSet<T>{
 			temp = temp.getNext();
 		}
 		}
-		
-	//	System.out.println(count);
 	}
-	
+	/**
+	 * Returns ArrayList containing all of the elements in the set. 
+	 * 
+	 */
 	public ArrayList<T> getAsList(){
 		Node<T> temp = head;
-		
 		ArrayList<T> testList = new ArrayList<>();
 		if(head == null){
 			System.out.println("Empty list!");
-			//testList.add(null);
 			return testList;
 		}else{
-			
 		while(temp!=null){
 			testList.add(temp.getData());
 			temp = temp.getNext();
-			
 		}
-		
 		}
 		return testList;
 	}
-	
-	
+	/**
+	 * Removes specified element from the set if it is present.
+	 */
 	public void delete(T value) {
+		/**
+		 * If the element doesn't exists 
+		 * @throw InputMisMatchException().
+		 */
 		if(!exists(value)){
 			throw new InputMismatchException();
 			
@@ -182,7 +170,6 @@ public class HashSet<T> implements OrderedSet<T>{
 			if(isCollisionLinkedList(element)){
 				Node<T> newNode = deleteLinkedList(element,value);
 				array[index] = newNode;
-				
 			}else{
 				array[index] = null;
 				deleteOrderingLinkedList(element);
@@ -214,18 +201,18 @@ public class HashSet<T> implements OrderedSet<T>{
 
 	private void deleteOrderingLinkedList(Node<T> element) {
 
-		if(element.getPrev()!=null){
+		if(element.getPrevious()!=null){
 			if(element.getNext()!=null){ 
-				element.getPrev().setNext(element.getNext());
-				element.getNext().setPrev(element.getPrev());
+				element.getPrevious().setNext(element.getNext());
+				element.getNext().setPrevious(element.getPrevious());
 			}else{
-				element.getPrev().setNext(null);
-				tail = element.getPrev();
+				element.getPrevious().setNext(null);
+				tail = element.getPrevious();
 			}
 		}else{
 			if(element.getNext()!=null){
 				head = element.getNext();
-				element.getNext().setPrev(null);
+				element.getNext().setPrevious(null);
 			}else{
 				head = null;
 				tail = null;
@@ -233,20 +220,10 @@ public class HashSet<T> implements OrderedSet<T>{
 		}
 		
 	}
-
+	//Checks if the element is in collision list.
 	private boolean isCollisionLinkedList(Node<T> element) {
 		return element.getRight()!=null;
 		
 	}
-
-/*	public void printArray() {
-		int j = 0;
-		String[] testArray  = new String();
-		for(int i=0;i<hashSetArray.length;i++){
-			if(hashSetArray[i]!=null){
-				
-			}
-		}
-	}*/
-		
+	
 }

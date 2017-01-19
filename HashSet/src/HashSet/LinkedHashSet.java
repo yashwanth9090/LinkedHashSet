@@ -7,9 +7,9 @@ public class LinkedHashSet {
 		
 		newList.insert("yashu"); 
 		newList.insert("uttam");
-		newList.insert("sam");
+		newList.insert("sam"); 
 		newList.print();
-
+ 
 		
 		
 	}

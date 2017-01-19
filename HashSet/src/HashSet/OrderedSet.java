@@ -27,9 +27,13 @@ public interface OrderedSet<T> {
 	
 	/**
 	
-	Stores list of elements into the ArrayList.
+	Returns an ArrayList containing all of the elements in the set.
 	 **/
 	public ArrayList<T> getAsList();
+	/**
+	 * Prints all of the elements in the set.
+	 */
+	public void print();
 	
 	
 }

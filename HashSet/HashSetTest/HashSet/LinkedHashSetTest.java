@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -80,7 +81,13 @@ public class LinkedHashSetTest {
 		actualList.delete("uttam"); 
 		
 	}
-	
+	@Test
+	public void testInsert(){
+		ArgumentCaptor<String> arg = ArgumentCaptor.forClass(String.class);
+		actualList.insert("yashu");
+		Mockito.verify(actualList).insert(arg.capture());
+		assertEquals("yashu",arg.getValue());
+	}
 	@Test
 	public void testDeletionFromCollsionListTail(){
 		
@@ -88,9 +95,7 @@ public class LinkedHashSetTest {
 		when(actualList.hashFunction("uttam")).thenReturn(1);
 		when(actualList.hashFunction("samatha")).thenReturn(2);
 		
-		actualList.insert("yashu");
-		actualList.insert("uttam");// Same index as yashu.
-		actualList.insert("samatha");
+		insertIntoActualList("yashu","uttam","samatha");
 				
 		Mockito.verify(actualList, Mockito.times(3)).hashFunction(Matchers.eq("yashu"));
 		Mockito.verify(actualList, Mockito.times(4)).hashFunction(Matchers.eq("uttam"));
@@ -258,17 +263,8 @@ public class LinkedHashSetTest {
 		assertEquals(8,actualList.getLengthOfArray());
 		
 	}
-	
-	@Test
-	public void testAvoidCollision(){
-		when(actualList.hashFunction("cherry")).thenReturn(0);
-		when(actualList.hashFunction("yashu")).thenReturn(0);
-		when(actualList.hashFunction("uttam")).thenReturn(0);
-		insertIntoActualList("yashu","uttam","cherry");
-	//	Mockito.verify(actualList,Mockito.times(2)).avoidCollision();
-		
-	}
 
+	
 	
 	private void verifyLists(Collection<String> expected, Collection<String> actual) {
 		assertEquals(expected.size(), actual.size());
@@ -298,16 +294,5 @@ public class LinkedHashSetTest {
 			expectedList.add(strings[i]);
 		}
 	}
-/*	@Test
-	public void testPrint(){
-		testList.setLengthOfArray(4);
-		testList.insert("yashu"); 
-		System.out.print(testList.print());
-		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	    System.setOut(new PrintStream(outContent));
-	    String expectedOutput  = "yashu";
-	    assertEquals(expectedOutput,outContent.toString());
-
-	}*/
 	
 }
