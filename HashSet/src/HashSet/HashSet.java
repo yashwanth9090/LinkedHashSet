@@ -1,7 +1,7 @@
 package HashSet;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-public class HashSet<T> implements OrderedSet<T>{
+public class HashSet<T> implements OrderedSet<T>, Container{
 	
 	private Node<T> head;
 	private Node<T> tail;
@@ -35,6 +35,32 @@ public class HashSet<T> implements OrderedSet<T>{
 	private void createNewArray(int length) {
 		array = new Node[length];
 	}
+	//Iterator
+	private class LinkedHashSetIterator implements Iterator<T>{
+		private Node<T> temp ;
+		
+		public LinkedHashSetIterator(){
+		temp = null;
+		}
+		@Override
+		public boolean hasNext() {
+			return temp!=tail;
+		}
+
+		@Override
+		public Object next() {
+			if(temp == null){
+				temp = head;
+				return temp.getData();
+			}
+			temp = temp.getNext();
+			if(this.hasNext()){
+				return temp.getData();
+			}
+			return temp.getData();
+		}
+		
+	}
 	
 	public void insert(T value) {
 		if(value == null){
@@ -56,7 +82,7 @@ public class HashSet<T> implements OrderedSet<T>{
 			count--;
 			return;
 		}
-		System.out.println("index: "+indexOfString);
+	//	System.out.println("index: "+indexOfString);
 		insertIntoArray(indexOfString, newNode);
 		if(head == null){
 			head = newNode;
@@ -224,6 +250,11 @@ public class HashSet<T> implements OrderedSet<T>{
 	private boolean isCollisionLinkedList(Node<T> element) {
 		return element.getRight()!=null;
 		
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+		return new LinkedHashSetIterator();
 	}
 	
 }

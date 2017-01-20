@@ -9,9 +9,6 @@ public class LinkedHashSet {
 		newList.insert("uttam");
 		newList.insert("sam"); 
 		newList.print();
- 
-		
-		
 	}
 	
 }
