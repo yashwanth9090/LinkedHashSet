@@ -8,7 +8,15 @@ public class LinkedHashSet {
 		newList.insert("yashu"); 
 		newList.insert("uttam");
 		newList.insert("sam"); 
-		newList.print();
+		//newList.print();
+		MyIterator<String> iter = newList.iterator();
+		while(iter.hasNext()){
+			System.out.println(iter.next());
+		}
+		
+ 
+		
+		
 	}
 	
 }

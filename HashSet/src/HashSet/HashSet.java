@@ -1,5 +1,4 @@
 package HashSet;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 public class HashSet<T> implements OrderedSet<T>, Container{
 	
@@ -36,7 +35,7 @@ public class HashSet<T> implements OrderedSet<T>, Container{
 		array = new Node[length];
 	}
 	//Iterator
-	private class LinkedHashSetIterator implements Iterator<T>{
+	private class LinkedHashSetIterator implements MyIterator<T>{
 		private Node<T> temp ;
 		
 		public LinkedHashSetIterator(){
@@ -60,6 +59,11 @@ public class HashSet<T> implements OrderedSet<T>, Container{
 			return temp.getData();
 		}
 		
+	}
+	
+	@Override
+	public MyIterator<T> iterator() {
+		return new LinkedHashSetIterator();
 	}
 	
 	public void insert(T value) {
@@ -161,23 +165,9 @@ public class HashSet<T> implements OrderedSet<T>, Container{
 		}
 		}
 	}
-	/**
-	 * Returns ArrayList containing all of the elements in the set. 
-	 * 
-	 */
-	public ArrayList<T> getAsList(){
-		Node<T> temp = head;
-		ArrayList<T> testList = new ArrayList<>();
-		if(head == null){
-			System.out.println("Empty list!");
-			return testList;
-		}else{
-		while(temp!=null){
-			testList.add(temp.getData());
-			temp = temp.getNext();
-		}
-		}
-		return testList;
+   //Returns true if set is empty
+	boolean isEmpty(){
+		return head==null;
 	}
 	/**
 	 * Removes specified element from the set if it is present.
@@ -252,9 +242,6 @@ public class HashSet<T> implements OrderedSet<T>, Container{
 		
 	}
 
-	@Override
-	public Iterator<T> iterator() {
-		return new LinkedHashSetIterator();
-	}
+	
 	
 }

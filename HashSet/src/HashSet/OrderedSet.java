@@ -1,6 +1,5 @@
 package HashSet;
 
-import java.util.ArrayList;
 /**
   Collection used to store list of elements and retains insertion order.
  **/
@@ -25,11 +24,7 @@ public interface OrderedSet<T> {
 	 **/
 	public boolean exists(T value);
 	
-	/**
-	
-	Returns an ArrayList containing all of the elements in the set.
-	 **/
-	public ArrayList<T> getAsList();
+
 	/**
 	 * Prints all of the elements in the set.
 	 */

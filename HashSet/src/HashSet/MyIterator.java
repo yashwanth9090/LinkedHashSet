@@ -1,6 +1,6 @@
 package HashSet;
 
-public interface Iterator<T> {
+public interface MyIterator<T> {
 	/**
 	 * Provides navigation in List and returns true if element exists.
 	 * @return boolean

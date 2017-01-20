@@ -54,12 +54,12 @@ public class LinkedHashSetTest {
 		Mockito.verify(actualList,Mockito.times(3)).hashFunction(Matchers.eq("samatha"));
 		
 		insertIntoExpectedList("yashu","yashu","samatha");
-		verifyLists(expectedList,actualList.getAsList());
+		verifyLists(expectedList,actualList);
 	}
 
 	@Test
 	public void testEmptyList(){
-		assertTrue(actualList.getAsList().isEmpty());
+		assertTrue(actualList.isEmpty());
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -72,7 +72,7 @@ public class LinkedHashSetTest {
 	public void testDeletingAllElements(){
 		insertIntoActualList("yashu","uttam","sam");
 		deleteElementsFromActualList("sam","uttam","yashu");
-		assertTrue(actualList.getAsList().isEmpty());
+		assertTrue(actualList.isEmpty());
 	}
 	
 	@Test(expected = InputMismatchException.class)
@@ -108,7 +108,7 @@ public class LinkedHashSetTest {
 		insertIntoExpectedList("yashu","uttam","samatha");
 		
 		expectedList.remove("uttam");
-		verifyLists(expectedList,actualList.getAsList());	
+		verifyLists(expectedList,actualList);	
 	}
 	
 	
@@ -133,7 +133,7 @@ public class LinkedHashSetTest {
 		actualList.delete("uttam");
 		insertIntoExpectedList("yashu","uttam","samatha");
 		expectedList.remove("uttam");
-		verifyLists(expectedList,actualList.getAsList());	
+		verifyLists(expectedList,actualList);	
 	}
 	
 	@Test
@@ -151,7 +151,7 @@ public class LinkedHashSetTest {
 		actualList.delete("uttam");
 		insertIntoExpectedList("yashu","uttam","samatha");
 		expectedList.remove("uttam");
-		verifyLists(expectedList,actualList.getAsList());
+		verifyLists(expectedList,actualList);
 	}
 	
 	@Test
@@ -169,7 +169,7 @@ public class LinkedHashSetTest {
 		actualList.delete("yashu");
 		insertIntoExpectedList("yashu","uttam","samatha");
 		expectedList.remove("yashu");
-		verifyLists(expectedList,actualList.getAsList());
+		verifyLists(expectedList,actualList);
 	}
 	
 	@Test
@@ -187,7 +187,7 @@ public class LinkedHashSetTest {
 		actualList.delete("samatha");
 		insertIntoExpectedList("yashu","uttam","samatha");
 		expectedList.remove("samatha");
-		verifyLists(expectedList,actualList.getAsList());
+		verifyLists(expectedList,actualList);
 	}
 	
 	@Test
@@ -205,7 +205,7 @@ public class LinkedHashSetTest {
 		actualList.delete("uttam");
 		insertIntoExpectedList("yashu","uttam","samatha");
 		expectedList.remove("uttam");
-		verifyLists(expectedList,actualList.getAsList());
+		verifyLists(expectedList,actualList);
 	}
 	
 	@Test
@@ -223,7 +223,7 @@ public class LinkedHashSetTest {
 		actualList.delete("yashu");
 		insertIntoExpectedList("yashu","uttam","samatha");
 		expectedList.remove("yashu");
-		verifyLists(expectedList,actualList.getAsList());
+		verifyLists(expectedList,actualList);
 	}
 	
 	@Test
@@ -243,7 +243,7 @@ public class LinkedHashSetTest {
 		expectedList.remove("yashu");		
 		expectedList.remove("uttam");
 		expectedList.remove("samatha");
-		verifyLists(expectedList,actualList.getAsList());
+		verifyLists(expectedList,actualList);
 	}
 	
 	@Test
@@ -266,10 +266,10 @@ public class LinkedHashSetTest {
 
 	
 	
-	private void verifyLists(Collection<String> expected, Collection<String> actual) {
-		assertEquals(expected.size(), actual.size());
+	private void verifyLists(Collection<String> expected, HashSet<String> actual) {
+	//	assertEquals(expected.size(), actual.size());
 		Iterator<String> expectedIterator = expected.iterator();
-		Iterator<String> actualIterator = actual.iterator();
+		MyIterator<String> actualIterator = actual.iterator();
 		
 		while(expectedIterator.hasNext()) {
 			assertEquals(expectedIterator.next(), actualIterator.next());			
