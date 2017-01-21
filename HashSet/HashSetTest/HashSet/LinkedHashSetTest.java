@@ -267,7 +267,6 @@ public class LinkedHashSetTest {
 	
 	
 	private void verifyLists(Collection<String> expected, HashSet<String> actual) {
-	//	assertEquals(expected.size(), actual.size());
 		Iterator<String> expectedIterator = expected.iterator();
 		MyIterator<String> actualIterator = actual.iterator();
 		
