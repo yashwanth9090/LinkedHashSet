@@ -226,6 +226,7 @@ public class LinkedHashSetTest {
 		verifyLists(expectedList,actualList);
 	}
 	
+	// deleting elements from collision linked list
 	@Test
 	public void testDeletingOrderingLinkedListElements(){
 		when(actualList.hashFunction("yashu")).thenReturn(1);
