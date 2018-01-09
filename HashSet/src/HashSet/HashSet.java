@@ -63,6 +63,7 @@ public class HashSet<T> implements OrderedSet<T>, Container<T>{
 		
 	}
 	
+	// returns iterator object
 	@Override
 	public MyIterator<T> iterator() {
 		return new LinkedHashSetIterator();
@@ -107,7 +108,7 @@ public class HashSet<T> implements OrderedSet<T>, Container<T>{
 		}
 		return hashSetArray;
 	}
-
+	
 	Node<T> avoidCollision(T value, Node<T> newNode, Node<T> tail, int indexOfString) {
 		Node<T> temp = array[indexOfString];
 		while(temp.getRight()!=null){
