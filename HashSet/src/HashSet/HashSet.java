@@ -109,6 +109,7 @@ public class HashSet<T> implements OrderedSet<T>, Container<T>{
 		return hashSetArray;
 	}
 	
+	// collision avoidence
 	Node<T> avoidCollision(T value, Node<T> newNode, Node<T> tail, int indexOfString) {
 		Node<T> temp = array[indexOfString];
 		while(temp.getRight()!=null){
