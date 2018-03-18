@@ -15,7 +15,7 @@ public class Node<T> {
 	private	Node<T> next;
 	private	Node<T> right;
 	
-
+	// POJO
 	public T getData() {
 		return data;
 	}
