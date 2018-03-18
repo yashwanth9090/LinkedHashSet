@@ -36,7 +36,6 @@ public class HashSet<T> implements OrderedSet<T>, Container<T>{
 		array = new Node[length];
 	}
 	
-	//Iterator
 	private class LinkedHashSetIterator implements MyIterator<T>{
 		private Node<T> temp ;
 		
