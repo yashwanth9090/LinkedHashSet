@@ -9,6 +9,7 @@ public class LinkedHashSet {
 		newList.insert("uttam");
 		newList.insert("sam"); 
 		//newList.print();
+		// Iterator implementation
 		MyIterator<String> iter = newList.iterator();
 		while(iter.hasNext()){
 			System.out.println(iter.next());
